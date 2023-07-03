@@ -1,0 +1,17 @@
+.popup__form {
+  width: 358px;
+  margin: 0 0 48px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 27px);
+  gap: 25px;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .popup__form {
+    width: 238px;
+    margin: 0 0 45px;
+  }
+}

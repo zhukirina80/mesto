@@ -1,0 +1,25 @@
+.element {
+  width: 282px;
+  height: 361px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .element {
+    width: 350px;
+    height: 425px;
+  }
+}
+
+@media (max-width: 767px) {
+  .element {
+    width: 282px;
+    height: 361px;
+  }
+}
