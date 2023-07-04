@@ -1,6 +1,5 @@
 .element {
   width: 282px;
-  height: 361px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #FFF;
@@ -13,13 +12,11 @@
 @media (max-width: 1023px) {
   .element {
     width: 350px;
-    height: 425px;
   }
 }
 
 @media (max-width: 767px) {
   .element {
     width: 282px;
-    height: 361px;
   }
 }

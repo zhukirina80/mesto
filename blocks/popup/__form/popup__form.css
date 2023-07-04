@@ -1,6 +1,6 @@
 .popup__form {
   width: 358px;
-  margin: 0 0 48px;
+  margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
@@ -11,7 +11,8 @@
 
 @media (max-width: 767px) {
   .popup__form {
+    gap: 30px;
     width: 238px;
-    margin: 0 0 45px;
+    margin: 0;
   }
 }
