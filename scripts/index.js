@@ -15,18 +15,12 @@ function closePopupProfile() {
   popupProfile.classList.remove('popup_opened')
 }
 
-profileAditButton.addEventListener("click", openPopupProfile)
-buttonClosePopupProfile.addEventListener("click", closePopupProfile)
-
-function closeSubmitPopupProfile(){
-  popupProfile.classList.remove('popup_opened')
-}
-
 function handleFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    closeSubmitPopupProfile()
+    closePopupProfile()
 }
-
+profileAditButton.addEventListener("click", openPopupProfile)
+buttonClosePopupProfile.addEventListener("click", closePopupProfile)
 formElement.addEventListener('submit', handleFormSubmit);
