@@ -64,7 +64,7 @@ const createCard = (item) => {
   image.src = item.link;
   const title = card.querySelector('.element__title');
   title.textContent = item.name;
-  image.alt = `Достопримечательность места`;
+  image.alt = item.name;
 
   card.querySelector('.element__delete-button').addEventListener('click', () => {
     card.remove();
@@ -77,7 +77,7 @@ const createCard = (item) => {
   function openImage(item) {
     bigImage.src = item.link;
     titleBigImage.textContent = item.name;
-    bigImage.alt = `Достопримечательность места`;
+    bigImage.alt = item.name;
   }
 
   image.addEventListener("click", function() {
