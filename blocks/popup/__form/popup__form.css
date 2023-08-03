@@ -2,16 +2,15 @@
   width: 358px;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 27px);
-  gap: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   border: 0;
 }
 
 @media (max-width: 767px) {
   .popup__form {
-    gap: 30px;
     width: 238px;
     margin: 0;
   }
