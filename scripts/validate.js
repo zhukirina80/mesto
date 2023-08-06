@@ -37,14 +37,24 @@ const validationConfig = {
     return inputList.some(inputElement => !inputElement.validity.valid);
   };
 
+  // Функция, которая деактивирует кнопку формы
+  function disableButton(buttonElement, validationConfig) {
+    buttonElement.classList.add(validationConfig.inactiveButtonClass);
+    buttonElement.disabled = true;
+  }
+
+   // Функция, которая активирует кнопку формы
+  function enableButton(buttonElement, validationConfig) {
+    buttonElement.classList.remove(validationConfig.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+
   // Функция, которая меняет сосояние кнопки формы
   const toggleButtonState = (inputList, buttonElement, validationConfig) => {
     if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add(validationConfig.inactiveButtonClass);
-      buttonElement.disabled = true;
+      disableButton(buttonElement, validationConfig);
     } else {
-      buttonElement.classList.remove(validationConfig.inactiveButtonClass);
-      buttonElement.disabled = false;
+      enableButton(buttonElement, validationConfig);
     };
   };
 
@@ -52,8 +62,12 @@ const validationConfig = {
   const setEventListeners = (formElement, validationConfig) => {
     const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
     const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
-
+    // деактивируем кнопку при 1й загрузке сайта
     toggleButtonState(inputList, buttonElement, validationConfig);
+    formElement.addEventListener('reset', () => {
+      disableButton(buttonElement, validationConfig)
+    });
+
     inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         isValid(formElement, inputElement);

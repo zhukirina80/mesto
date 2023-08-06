@@ -55,10 +55,10 @@ profileAditButton.addEventListener("click", function() {
 });
 
 function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup(popupProfile);
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closePopup(popupProfile);
 };
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
@@ -103,7 +103,6 @@ function handleAddCardFormSubmit(evt) {
   container.prepend(newCard);
   closePopup(popupElement);
   cardForm.reset();
-  enableValidation(validationConfig);
 };
 
 cardForm.addEventListener('submit', handleAddCardFormSubmit);
