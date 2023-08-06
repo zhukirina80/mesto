@@ -1,54 +1,51 @@
 const profileAditButton = document.querySelector('.profile__adit-button');
 const popupProfile = document.querySelector('.popup_type_profile')
-const buttonClosePopupProfile = popupProfile.querySelector(".popup__button-close");
-const formProfile = document.querySelector('.popup__form');
-const nameInput = formProfile.querySelector('.popup__input_type_name');
-const jobInput = formProfile.querySelector('.popup__input_type_job');
+const profileForm = document.forms["profile-form"];
+const nameInput = profileForm.querySelector('.popup__input_type_name');
+const jobInput = profileForm.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const profileAddButton = document.querySelector('.profile__add-button');
 const popupElement = document.querySelector('.popup_type_element');
-const buttonClosePopupElement = popupElement.querySelector(".popup__button-close_element");
 const container = document.querySelector('.elements__cards');
 const cards = document.querySelector('#element-template').content;
-const formCard = document.querySelector('.popup__form_element');
-const titleInput = formCard.querySelector('.popup__input_type_title');
-const linkInput = formCard.querySelector('.popup__input_type_link');
+const cardForm = document.forms["card-form"];
+const titleInput = cardForm.querySelector('.popup__input_type_title');
+const linkInput = cardForm.querySelector('.popup__input_type_link');
 const popupImage = document.querySelector('.popup_type_image');
-const buttonClosePopupImage = popupImage.querySelector(".popup__button-close_image");
 const bigImage = popupImage.querySelector(".popup__image");
 const titleBigImage = popupImage.querySelector(".popup__title-image");
-const popupList = Array.from(document.querySelectorAll('.popup'));
+const popups = document.querySelectorAll('.popup')
 
 function closePopupKeyEsc(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     if (popupOpened) {
       closePopup(popupOpened);
-      formCard.reset();
     };
   };
 };
-document.addEventListener('keydown', closePopupKeyEsc);
 
-popupList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === popup) {
-      const popupOpened = document.querySelector('.popup_opened');
-      if (popupOpened) {
-        closePopup(popupOpened);
-        formCard.reset();
-      };
-    };
-  });
+// Обработчик оверлея и крестиков
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup);
+        }
+        if (evt.target.classList.contains('popup__button-close')) {
+          closePopup(popup);
+        };
+    });
 });
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupKeyEsc);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupKeyEsc);
 };
 
 profileAditButton.addEventListener("click", function() {
@@ -57,29 +54,17 @@ profileAditButton.addEventListener("click", function() {
   jobInput.value = profileJob.textContent;
 });
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     closePopup(popupProfile);
 };
 
-buttonClosePopupProfile.addEventListener("click", function() {
-  closePopup(popupProfile);
-});
-
-formProfile.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 profileAddButton.addEventListener("click", function() {
   openPopup(popupElement);
-});
-
-buttonClosePopupElement.addEventListener("click", function() {
-  closePopup(popupElement);
-});
-
-buttonClosePopupImage.addEventListener("click", function() {
-  closePopup(popupImage);
 });
 
 const createCard = (item) => {
@@ -110,21 +95,20 @@ const createCard = (item) => {
   });
 
   return(card);
-}
+};
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   const newCard = createCard({link: linkInput.value, name: titleInput.value});
   container.prepend(newCard);
   closePopup(popupElement);
-  formCard.reset();
+  cardForm.reset();
+  enableValidation(validationConfig);
 };
 
-formCard.addEventListener('submit', handleAddCardFormSubmit);
+cardForm.addEventListener('submit', handleAddCardFormSubmit);
 
 initialCards.forEach((item) => {
   const card = createCard(item);
   container.append(card);
 });
-
-

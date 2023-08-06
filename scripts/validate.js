@@ -13,7 +13,7 @@ const validationConfig = {
     const spanElement = formElement.querySelector(`.${inputElement.id}-error`);
     spanElement.textContent = inputElement.validationMessage;
     spanElement.classList.add(validationConfig.errorClass);
-  }
+  };
 
   // Функция, которая удаляет класс с ошибкой
   const hideInputError = (formElement, inputElement, validationConfig) => {
@@ -21,7 +21,7 @@ const validationConfig = {
     const spanElement = formElement.querySelector(`.${inputElement.id}-error`);
     spanElement.textContent = '';
     spanElement.classList.remove(validationConfig.errorClass);
-  }
+  };
 
   // Функция, которая проверяет валидность инпута
   const isValid = (formElement, inputElement) => {
@@ -69,4 +69,5 @@ const enableValidation = () => {
     setEventListeners(formElement, validationConfig);
   });
 };
-enableValidation();
+
+enableValidation(validationConfig);
