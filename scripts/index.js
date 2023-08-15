@@ -16,6 +16,15 @@ const cardForm = document.forms['card-form'];
 const titleInput = cardForm.querySelector('.popup__input_type_title');
 const linkInput = cardForm.querySelector('.popup__input_type_link');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -62,9 +71,19 @@ profileAddButton.addEventListener("click", function() {
   openPopup(popupElement);
 })
 
+function handleCardClick(name, link) {
+  const popupImage = document.querySelector('.popup_type_image');
+  const bigImage = popupImage.querySelector('.popup__image');
+  const titleBigImage = popupImage.querySelector('.popup__title-image');
+  bigImage.src = link;
+  titleBigImage.textContent = name;
+  bigImage.alt = name;
+  openPopup(popupImage);
+}
+
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  const newCard = new Card({link: linkInput.value, name: titleInput.value});
+  const newCard = new Card({link: linkInput.value, name: titleInput.value}, '#element-template', handleCardClick);
   container.prepend(newCard.getView());
   closePopup(popupElement);
   cardForm.reset();
@@ -73,7 +92,7 @@ function handleAddCardFormSubmit(evt) {
 cardForm.addEventListener("submit", handleAddCardFormSubmit);
 
 initialCards.forEach((item) => {
-  const card = new Card(item);
+  const card = new Card(item, '#element-template', handleCardClick);
   container.append(card.getView());
 })
 
@@ -81,7 +100,7 @@ initialCards.forEach((item) => {
 const createFormValidatorInstances = () => {
   const formList = Array.from(document.querySelectorAll('.popup__form'));
   formList.forEach(formElement => {
-    const formValidator = new FormValidator(formElement);
+    const formValidator = new FormValidator(formElement, validationConfig);
     formValidator.enableValidation();
   })
 }

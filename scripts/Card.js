@@ -1,27 +1,31 @@
 import { openPopup } from "./utils.js";
 
 class Card {
-  constructor({ name, link }) {
+  constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
+    this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
+    this._newCard = this._getTemplate();
+    this._image = this._newCard.querySelector('.element__image');
+    this._buttonLike = this._newCard.querySelector('.element__button-like');
   }
 
   _getTemplate() {
-    const templateSelector = document
-    .querySelector('#element-template')
+    const cardTemplate = document
+    .querySelector(this._templateSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);
 
-    return templateSelector;
+    return cardTemplate;
   }
 
   _setData() {
-    const image = this._newCard.querySelector('.element__image');
-    image.src = this._link;
+    this._image.src = this._link;
     const title = this._newCard.querySelector('.element__title');
     title.textContent = this._name;
-    image.alt = this._name;
+    this._image.alt = this._name;
   }
 
   _handleDeleteCard() {
@@ -29,13 +33,8 @@ class Card {
     this._newCard = null;
   }
 
-  _openImage() {
-    const popupImage = document.querySelector('.popup_type_image');
-    const bigImage = popupImage.querySelector('.popup__image');
-    const titleBigImage = popupImage.querySelector('.popup__title-image');
-    bigImage.src = this._link;
-    titleBigImage.textContent = this._name;
-    bigImage.alt = this._name;
+  _handleLikeCard() {
+    this._buttonLike.classList.toggle('element__button-like_active');
   }
 
   _setListeners() {
@@ -43,18 +42,16 @@ class Card {
       this._handleDeleteCard();
     })
 
-    this._newCard.querySelector('.element__button-like').addEventListener('click', function(evt) {
-      evt.target.classList.toggle('element__button-like_active');
+    this._buttonLike.addEventListener('click', () => {
+      this._handleLikeCard();
     })
 
-    this._newCard.querySelector('.element__image').addEventListener("click", () => {
-      this._openImage();
-      openPopup(document.querySelector('.popup_type_image'));
+    this._image.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
     })
   }
 
   getView() {
-    this._newCard = this._getTemplate();
     this._setData();
     this._setListeners();
 

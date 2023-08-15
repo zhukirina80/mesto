@@ -1,13 +1,6 @@
 class FormValidator {
-  constructor(formElement) {
-    this._validationConfig = {
-      formSelector: '.popup__form',
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__button',
-      inactiveButtonClass: 'popup__button_disabled',
-      inputErrorClass: 'popup__input_type_error',
-      errorClass: 'popup__error_visible'
-    }
+  constructor(formElement, validationConfig) {
+    this._validationConfig = validationConfig;
     this._formElement = formElement;
     this._inputList = Array.from(formElement.querySelectorAll(this._validationConfig.inputSelector));
     this._buttonElement = formElement.querySelector(this._validationConfig.submitButtonSelector);
