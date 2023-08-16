@@ -15,6 +15,9 @@ const container = document.querySelector('.elements__cards');
 const cardForm = document.forms['card-form'];
 const titleInput = cardForm.querySelector('.popup__input_type_title');
 const linkInput = cardForm.querySelector('.popup__input_type_link');
+const popupImage = document.querySelector('.popup_type_image');
+const bigImage = popupImage.querySelector('.popup__image');
+const titleBigImage = popupImage.querySelector('.popup__title-image');
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -72,9 +75,6 @@ profileAddButton.addEventListener("click", function() {
 })
 
 function handleCardClick(name, link) {
-  const popupImage = document.querySelector('.popup_type_image');
-  const bigImage = popupImage.querySelector('.popup__image');
-  const titleBigImage = popupImage.querySelector('.popup__title-image');
   bigImage.src = link;
   titleBigImage.textContent = name;
   bigImage.alt = name;
