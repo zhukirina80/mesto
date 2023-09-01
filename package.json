@@ -1,0 +1,31 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Проектная работа создана мною в рамках обучения на платформе Яндекс Практикум. Данный проект - это начало работы над одностраничным сайтом, которому в последующем будет довавлена новая функциональнсть. Для создания проекта использовались технологии HTML5 и CSS3 и JavaScript. Файловая структура оформлена по правилам Nested БЭМ. В проекте использовалась адаптивная вестка под разные разрешения мониторов. Работа выполнена с помощью технологий: флексбокс-верстка, гриды, работа c анимированными ссылками, всплывающим окном и полями для ввода данных, часть логики написана с помощью JavaScript.   https://zhukirina80.github.io/mesto/index.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production",
+    "dev": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@babel/preset-env": "^7.22.14",
+    "autoprefixer": "^10.4.15",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "cssnano": "^6.0.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-loader": "^7.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "core-js": "^3.32.1"
+  }
+}
