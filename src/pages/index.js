@@ -7,11 +7,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import {
   profileEditButton,
-  profileForm,
-  nameInput,
-  jobInput,
   profileAddButton,
-  container,
   validationConfig,
   initialCards
 } from "../utils/constants.js";
@@ -19,36 +15,34 @@ import {
 // Для попапа профиля:
 const userInfo = new UserInfo({ nameSelector:'.profile__name', jobSelector:'.profile__job' });
 
-const editButtonPopup = new PopupWithForm('.popup_type_profile', (formData) => {
-  userInfo.setUserInfo(formData);
+const editProfilePopup = new PopupWithForm('.popup_type_profile', (formData) => {
+  userInfo.setUserInfo({ name: formData.nameInput, job: formData.jobInput });
 })
 
-editButtonPopup.setEventListeners();
+editProfilePopup.setEventListeners();
 
 profileEditButton.addEventListener("click", function() {
-  editButtonPopup.open();
+  editProfilePopup.open();
 })
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-
-  userInfo.setUserInfo({ name: nameInput.value, job: jobInput.value });
-  editButtonPopup.close();
+// Функция создания карточки
+function createCard(item) {
+  const card = new Card(item, '#element-template', handleCardClick);
+  const cardItem = card.getView();
+  return cardItem;
 }
 
-profileForm.addEventListener("submit", handleProfileFormSubmit);
-
 // Для попапа добавления карточки:
-const addButtonPopup = new PopupWithForm('.popup_type_element', (formData) => {
-  const newCard = new Card({ link: formData.linkInput, name: formData.titleInput }, '#element-template', handleCardClick);
-  container.prepend(newCard.getView());
-  addButtonPopup.close();
+const addCardPopup = new PopupWithForm('.popup_type_element', (formData) => {
+  const newCard = createCard({ link: formData.linkInput, name: formData.titleInput });
+  cardList.addItem(newCard);
+  addCardPopup.close();
 })
 
-addButtonPopup.setEventListeners();
+addCardPopup.setEventListeners();
 
 profileAddButton.addEventListener("click", function() {
-  addButtonPopup.open();
+  addCardPopup.open();
 })
 
 // Для попапа картинки
@@ -63,8 +57,8 @@ imagePopup.open(name, link);
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#element-template', handleCardClick);
-    cardList.setItem(card.getView());
+    const cardElement = createCard(item);
+    cardList.addItemWithAppend(cardElement);
     },
   },
   '.elements__cards'

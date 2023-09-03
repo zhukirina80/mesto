@@ -4,9 +4,6 @@ export default class Card {
     this._link = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._newCard = this._getTemplate();
-    this._image = this._newCard.querySelector('.element__image');
-    this._buttonLike = this._newCard.querySelector('.element__button-like');
   }
 
   _getTemplate() {
@@ -29,6 +26,9 @@ export default class Card {
   _handleDeleteCard() {
     this._newCard.remove();
     this._newCard = null;
+    this._image =  null;
+    this._buttonLike = null;
+
   }
 
   _handleLikeCard() {
@@ -50,6 +50,9 @@ export default class Card {
   }
 
    getView() {
+    this._newCard = this._getTemplate();
+    this._image = this._newCard.querySelector('.element__image');
+    this._buttonLike = this._newCard.querySelector('.element__button-like');
     this._setData();
     this._setListeners();
 
