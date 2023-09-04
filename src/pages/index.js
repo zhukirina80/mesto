@@ -8,6 +8,8 @@ import Section from "../components/Section.js";
 import {
   profileEditButton,
   profileAddButton,
+  nameInput,
+  jobInput,
   validationConfig,
   initialCards
 } from "../utils/constants.js";
@@ -23,13 +25,15 @@ editProfilePopup.setEventListeners();
 
 profileEditButton.addEventListener("click", function() {
   editProfilePopup.open();
+  const {name, job} = userInfo.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
 })
 
 // Функция создания карточки
 function createCard(item) {
   const card = new Card(item, '#element-template', handleCardClick);
-  const cardItem = card.getView();
-  return cardItem;
+  return card.getView();
 }
 
 // Для попапа добавления карточки:
