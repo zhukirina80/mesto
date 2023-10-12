@@ -12,11 +12,15 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
   },
+
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
+    static: path.resolve(__dirname, './dist'),
+    compress: true,
+    port: 8080,
+
+    open: true
   },
+
   module: {
     rules: [
       {
@@ -61,4 +65,5 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
   ],
+  devtool: 'source-map'
  };
