@@ -5,6 +5,7 @@ const profileForm = document.forms['profile-form'];
 const nameInput = profileForm.querySelector('.popup__input_type_name');
 const jobInput = profileForm.querySelector('.popup__input_type_job');
 const avatar = document.querySelector('.profile__avatar');
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -22,5 +23,6 @@ export {
   nameInput,
   jobInput,
   validationConfig,
-  avatar
+  avatar,
+  formList
 }

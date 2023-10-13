@@ -80,7 +80,10 @@ export default class Card {
 
   removeCard() {
     this._newCard.remove();
-    }
+    this._newCard = null;
+    this._image =  null;
+    this._buttonLike = null;
+  }
 
   getView(userId) {
     this._newCard = this._getTemplate();

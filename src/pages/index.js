@@ -14,7 +14,8 @@ import {
   nameInput,
   jobInput,
   validationConfig,
-  avatar
+  avatar,
+  formList
 } from "../utils/constants.js";
 
 let userId = '';
@@ -47,49 +48,49 @@ Promise.all([api.loadUserInfo(), api.getInitialCards()])
   })
 
 profileEditButton.addEventListener("click", function() {
-  editProfilePopup.open();
+  popupProfile.open();
   const { name, about } = userInfo.getUserInfo();
   nameInput.value = name;
   jobInput.value = about;
 })
 
-const editProfilePopup = new PopupWithForm('.popup_type_profile', '.popup__button_type_profile', (formData) => {
-  editProfilePopup.renderLoading(true);
+const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__button_type_profile', (formData) => {
+  popupProfile.renderLoading(true);
   api.patchUserInfo({ name: formData.nameInput, about: formData.jobInput })
     .then((res) => {
       userInfo.setUserInfo(res);
-      editProfilePopup.close();
+      popupProfile.close();
     })
     .catch((error) => {
       console.error('Ошибка при редактировании профиля:', error);
     })
     .finally(() => {
-      editProfilePopup.renderLoading(false)
+      popupProfile.renderLoading(false)
   });
 });
 
-editProfilePopup.setEventListeners();
+popupProfile.setEventListeners();
 
 avatarEditButton.addEventListener("click", function() {
-  editAvatarPopup.open();
+  popupAvatar.open();
 })
 
-const editAvatarPopup = new PopupWithForm('.popup_type_avatar', '.popup__button_type_avatar', (data) => {
-  editAvatarPopup.renderLoading(true);
+const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__button_type_avatar', (data) => {
+  popupAvatar.renderLoading(true);
   api.patchAvatar({avatar: data.avatarInput})
     .then((res) => {
       userInfo.setUserInfo(res);
-      editAvatarPopup.close();
+      popupAvatar.close();
     })
     .catch((error) => {
       console.error('Ошибка при редактировании аватара:', error);
     })
     .finally(() => {
-      editAvatarPopup.renderLoading(false)
+      popupAvatar.renderLoading(false)
   });
 });
 
-editAvatarPopup.setEventListeners();
+popupAvatar.setEventListeners();
 
 
 function createCard(item) {
@@ -111,7 +112,7 @@ function createCard(item) {
       })
   },
     (card) => {
-      popupWithConfirm.setCardId(card._id);
+      popupWithConfirm.setItemId(card._id);
       popupWithConfirm.open();
       popupWithConfirm.handleFormSubmitConfirm((id) => {
         api.deleteCard(id)
@@ -128,33 +129,33 @@ function createCard(item) {
   return cardTemplate;
 }
 
-const addCardPopup = new PopupWithForm('.popup_type_element', '.popup__button_type_element', (formData) => {
-  addCardPopup.renderLoading(true);
+const popupAddCard = new PopupWithForm('.popup_type_element', '.popup__button_type_element', (formData) => {
+  popupAddCard.renderLoading(true);
   api.addCard({ name: formData.titleInput, link: formData.linkInput })
     .then((res) =>{
       const newCard = createCard(res)
       cardList.addItem(newCard, userId)
-      addCardPopup.close()
+      popupAddCard.close()
     })
     .catch((error) => {
       console.error('Ошибка при добавлении карточки:', error);
     })
     .finally(() => {
-      addCardPopup.renderLoading(false)
+      popupAddCard.renderLoading(false)
   });
 });
 
-addCardPopup.setEventListeners();
+popupAddCard.setEventListeners();
 
 profileAddButton.addEventListener("click", function() {
-  addCardPopup.open();
+  popupAddCard.open();
 });
 
-const imagePopup = new PopupWithImage('.popup_type_image');
-imagePopup.setEventListeners();
+const popupImage = new PopupWithImage('.popup_type_image');
+popupImage.setEventListeners();
 
 function handleCardClick(name, link) {
-imagePopup.open(name, link);
+popupImage.open(name, link);
 }
 
 const popupWithConfirm = new PopupWithConfirm('.popup_type_delete-card');
@@ -171,13 +172,12 @@ const cardList = new Section({
 '.elements__cards'
 );
 
-// Функция для включения валидации на форме
-const createFormValidatorInstances = () => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach(formElement => {
-    const formValidator = new FormValidator(formElement, validationConfig);
-    formValidator.enableValidation();
-  })
-}
+// Инстанцируем экземпляры FormValidator для каждой формы
+const formValidators = formList.map((formElement) => {
+  return new FormValidator(formElement, validationConfig);
+});
 
-createFormValidatorInstances();
+// Активируем валидацию для каждой формы
+formValidators.forEach((formValidator) => {
+  formValidator.enableValidation();
+});

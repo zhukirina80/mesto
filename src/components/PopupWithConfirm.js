@@ -6,8 +6,8 @@ export default class PopupWithConfirm extends Popup {
     this._form = this._popup.querySelector('.popup__form');
   }
 
-  setCardId(id) {
-    this._cardId = id;
+  setItemId(id) {
+    this._itemId = id;
   }
 
   setEventListeners() {
@@ -15,7 +15,7 @@ export default class PopupWithConfirm extends Popup {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
 
-      this._formSubmitConfirm(this._cardId);
+      this._formSubmitConfirm(this._itemId);
     });
   }
 
