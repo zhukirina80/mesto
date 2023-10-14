@@ -35,7 +35,7 @@
     <div class="popup__container">
       <button type="reset" class="popup__button-close" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="profile-form" class="popup__form">
+      <form name="profile-form" class="popup__form popup__form_profile">
         <input type="text" id="name-input" name="nameInput" class="popup__input popup__input_type_name" placeholder="Имя профиля" minlength="2" maxlength="40" required>
         <span class="name-input-error popup__error"></span>
         <input type="text" id="job-input" name="jobInput" class="popup__input popup__input_type_job" placeholder="Описание профиля" minlength="2" maxlength="200" required>
@@ -61,7 +61,7 @@
     <div class="popup__container">
       <button type="reset" class="popup__button-close" aria-label="Закрыть"></button>
       <h2 class="popup__title">Обновить аватар</h2>
-      <form name="profile-form" class="popup__form popup__form_avatar">
+      <form name="avatar-form" class="popup__form popup__form_avatar">
         <input type="url" id="url-avatar-input" name="avatarInput" class="popup__input popup__input_type_avatar" placeholder="Ссылка на фото" required>
         <span class="url-avatar-input-error popup__error"></span>
         <button type="submit" class="popup__button popup__button_type_avatar">Сохранить</button>

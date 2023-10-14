@@ -11,11 +11,13 @@ import {
   profileEditButton,
   profileAddButton,
   avatarEditButton,
+  profileForm,
   nameInput,
   jobInput,
-  validationConfig,
   avatar,
-  formList
+  cardForm,
+  avatarForm,
+  validationConfig
 } from "../utils/constants.js";
 
 let userId = '';
@@ -91,7 +93,6 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__button_type
 });
 
 popupAvatar.setEventListeners();
-
 
 function createCard(item) {
   const card = new Card(item, '#element-template', handleCardClick, userId, (id) => {
@@ -172,12 +173,13 @@ const cardList = new Section({
 '.elements__cards'
 );
 
-// Инстанцируем экземпляры FormValidator для каждой формы
-const formValidators = formList.map((formElement) => {
-  return new FormValidator(formElement, validationConfig);
-});
+//Инстанцируем экземпляры FormValidator для каждой формы
+const formProfileValidator = new FormValidator(profileForm, validationConfig);
+const formCardValidator = new FormValidator(cardForm, validationConfig);
+const formAvatarValidator = new FormValidator(avatarForm, validationConfig);
 
 // Активируем валидацию для каждой формы
-formValidators.forEach((formValidator) => {
-  formValidator.enableValidation();
-});
+formProfileValidator.enableValidation();
+formCardValidator.enableValidation();
+formAvatarValidator.enableValidation();
+
